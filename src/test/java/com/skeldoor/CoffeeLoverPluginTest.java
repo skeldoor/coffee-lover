@@ -1,4 +1,4 @@
-package com.skeldoor.coffeelover;
+package com.skeldoor;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;

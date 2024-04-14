@@ -23,8 +23,8 @@ dependencies {
 	testImplementation group: 'net.runelite', name:'jshell', version: runeLiteVersion
 }
 
-group = 'com.skeldoor.coffeelover'
-version = '1.0.2'
+group = 'com.skeldoor'
+version = '1.0.3'
 
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
