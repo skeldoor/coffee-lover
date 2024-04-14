@@ -10,7 +10,6 @@ import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.OverheadTextChanged;
 import net.runelite.api.widgets.ComponentID;
 import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -53,7 +52,7 @@ public class CoffeeLoverPlugin extends Plugin
 		Widget dialogNPCText = client.getWidget(ComponentID.DIALOG_NPC_TEXT);
 		if (dialogNPCText != null &&
 			dialogNPCText.getText().contains("Would you like a cup of tea")){
-			Objects.requireNonNull(client.getWidget(WidgetInfo.DIALOG_NPC_TEXT)).setText("Thank you so much! Would you like a cup of coffee before you go?");
+			dialogNPCText.setText("Thank you so much! Would you like a cup of coffee before you go?");
 		}
 		Widget dialogOptionOptions = client.getWidget(ComponentID.DIALOG_OPTION_OPTIONS);
 		if (dialogOptionOptions != null &&
