@@ -2,13 +2,13 @@ package com.skeldoor.coffeelover;
 
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.Player;
 import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.OverheadTextChanged;
+import net.runelite.api.widgets.ComponentID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.eventbus.Subscribe;
@@ -50,19 +50,23 @@ public class CoffeeLoverPlugin extends Plugin
 	@Subscribe
 	public void onBeforeRender(BeforeRender beforeRender){
 		if (client.getGameState() != GameState.LOGGED_IN) return;
-		if (client.getWidget(WidgetInfo.DIALOG_NPC_TEXT) != null &&
-			client.getWidget(WidgetInfo.DIALOG_NPC_TEXT).getText().contains("Would you like a cup of tea")){
+		Widget dialogNPCText = client.getWidget(ComponentID.DIALOG_NPC_TEXT);
+		if (dialogNPCText != null &&
+			dialogNPCText.getText().contains("Would you like a cup of tea")){
 			Objects.requireNonNull(client.getWidget(WidgetInfo.DIALOG_NPC_TEXT)).setText("Thank you so much! Would you like a cup of coffee before you go?");
 		}
-		if (client.getWidget(WidgetInfo.DIALOG_OPTION_OPTIONS) != null &&
-			client.getWidget(WidgetInfo.DIALOG_OPTION_OPTIONS).getChildren().length > 0 &&
-			client.getWidget(WidgetInfo.DIALOG_OPTION_OPTIONS).getChildren()[0].getText().contains("Take tea?")) {
-			client.getWidget(WidgetInfo.DIALOG_OPTION_OPTIONS).getChildren()[0].setText("Take coffee?");
+		Widget dialogOptionOptions = client.getWidget(ComponentID.DIALOG_OPTION_OPTIONS);
+		if (dialogOptionOptions != null &&
+			dialogOptionOptions.getChildren() != null &&
+			dialogOptionOptions.getChildren().length > 0 &&
+			dialogOptionOptions.getChildren()[0].getText().contains("Take tea?")) {
+			dialogOptionOptions.getChildren()[0].setText("Take coffee?");
 		}
-		if (client.getWidget(WidgetInfo.CHATBOX_MESSAGE_LINES) != null &&
-			client.getWidget(WidgetInfo.CHATBOX_MESSAGE_LINES).getChildren() != null &&
-			client.getWidget(WidgetInfo.CHATBOX_MESSAGE_LINES).getChildren().length > 0){
-			for (Widget child : client.getWidget(WidgetInfo.CHATBOX_MESSAGE_LINES).getChildren()){
+		Widget chatboxMessageLines = client.getWidget(ComponentID.CHATBOX_MESSAGE_LINES);
+		if (chatboxMessageLines != null &&
+			chatboxMessageLines.getChildren() != null &&
+			chatboxMessageLines.getChildren().length > 0){
+			for (Widget child : chatboxMessageLines.getChildren()){
 				if (child.getText().contains("You drink the tea, you feel energized!")){
 					child.setText("You drink the coffee, you feel energized!");
 				}
